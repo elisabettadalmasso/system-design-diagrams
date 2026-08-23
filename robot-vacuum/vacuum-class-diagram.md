@@ -10,19 +10,20 @@ classDiagram
         + clean()void
         + returnToBase()void
         + charge()void
+        + alert() void
     }
 
     class Battery {
         -capacity: number
         -chargeRate: number
-        -getLevel: number
+        -level: number
         -isCharging: boolean
         -health: string
         + charge()void
         + discharge()void
         +isCharged() boolean
         +isLow() boolean
-        +levelBattery() number
+        +getLevel() number
         +isFaulty() boolean
     }
     Vacuum *-- Battery
@@ -32,7 +33,6 @@ classDiagram
         -size: number
         -material: string
         -shape: string
-        -rotationAxis: string
         +rotate() void
         +stop() void
         +isWorn() boolean
@@ -52,23 +52,45 @@ classDiagram
     }
     Vacuum o-- DockingStation
 
-    class Motor {
-        -type: string
-        -getSpeed: number
-        -isRunning: boolean
+    class WheelMotor {
+        -speed: number
+        -running: boolean
+        -direction: string
+        +start() void
+        +stop() void
+        +isRunning() boolean
+        +getSpeed() number
+        +getDirection() string
+        +setDirection(direction: string) void
+    }
+    Wheel *-- WheelMotor
+
+    class BrushMotor {
+        -running: boolean
+        -direction: string
+        +start() void
+        +stop() void
+        +isRunning() boolean
+        +getDirection() string
+    }
+    Brush *-- BrushMotor
+
+    class SuctionMotor {
+        -running: boolean
         +start() void
         +stop() void
         +isRunning() boolean
     }
-    Vacuum *-- Motor
+    Vacuum *-- SuctionMotor
 
     class Sensor {
         -type: string
         -isActive: boolean
+        -obstacle: boolean
         +activate() void
         +deactivate() void
         +isActive() boolean
-        
+        +detectObstacle() boolean
     }
     Vacuum "1" *-- "4" Sensor
 
@@ -84,7 +106,6 @@ classDiagram
     class Wheel {
         -size: number
         -material: string
-        -rotationAxis: string
         +rotate() void
         +stop() void
         
