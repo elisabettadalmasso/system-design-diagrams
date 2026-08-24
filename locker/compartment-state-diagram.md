@@ -6,12 +6,12 @@ stateDiagram-v2
     Open : Open / door unlocked
     Open --> AwaitingPickup : door closed (parcel inside)
     AwaitingPickup : Awaiting pickup / code to the client
-   AwaitingPickup --> Expired : 3 days expired
-   Expired : Expired / notify courier
-   Expired --> Available : courier collects parcel
+    AwaitingPickup --> Expired : 3 days expired
+    Expired : Expired / notify courier
+    Expired --> Available : courier collects parcel
     state check_code <<choice>>
-    AwaitingPickup --> check_code : code entered
-   check_code --> Open : [code valid]
-   check_code --> AwaitingPickup : [code invalid]
-   Open --> Available : door closed (empty)
+      AwaitingPickup --> check_code : code entered
+      check_code --> Open : [code valid]
+      check_code --> AwaitingPickup : [code invalid]
+    Open --> Available : door closed (empty)
 ```
